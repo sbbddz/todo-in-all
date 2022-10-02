@@ -1,6 +1,6 @@
 # We love TODO apps!
 
-A really great way to decide what framework for your new side project before we have the next-day javascript framework its to see the implementation of a TODO app in all of them.
+A really great way to decide what framework for your new side project before we have the next-day javascript framework its to see the implementation of a TODO or a simple functional app in all of them.
 
 Motivated by the HacktoberFest 2022, we want to collect all possible implementations in this repository.
 
