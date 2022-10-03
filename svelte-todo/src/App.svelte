@@ -1,12 +1,21 @@
 <script lang="ts">
-  let todos: string[] = [];
+  interface Todo {
+    id: number;
+    value: string;
+  }
+
+  let todos: Todo[] = [];
   let todo: string = '';
 
   const addTodo = () => {
     if (!todo) return;
 
-    todos = [...todos, todo]
+    todos = [...todos, {id: todos.length + 1, value: todo}]
     todo = ''
+  }
+
+  const removeTodo = (todo: Todo) => {
+    todos = todos.filter(x => x.id !== todo.id)
   }
 </script>
 
@@ -16,9 +25,12 @@
     <input type="text" name="" id="" bind:value={todo} />
   </form>
 
-  <ul class="list">
+  <ul>
     {#each todos as t }
-      <li>{t}</li>
+      <div style="display: flex; flex-direction: row; align-items: center;">
+        <button on:click={() => removeTodo(t)}>Remove</button>
+        <li style="list-style-type: none; margin-left: 15px;">{t.value}</li>
+      </div>
     {/each}
   </ul>
 </main>
