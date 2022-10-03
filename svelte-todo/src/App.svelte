@@ -4,7 +4,7 @@
     value: string;
   }
 
-  let todos: Todo[] = [];
+  let todos: Todo[] = JSON.parse(window.localStorage.getItem("svelteTODOS")) ?? [];
   let todo: string = '';
 
   const addTodo = () => {
@@ -12,10 +12,16 @@
 
     todos = [...todos, {id: todos.length + 1, value: todo}]
     todo = ''
+    updateTodosInLocalStorage();
   }
 
   const removeTodo = (todo: Todo) => {
     todos = todos.filter(x => x.id !== todo.id)
+    updateTodosInLocalStorage();
+  }
+
+  const updateTodosInLocalStorage = () => {
+    window.localStorage.setItem("svelteTODOS", JSON.stringify(todos))
   }
 </script>
 
