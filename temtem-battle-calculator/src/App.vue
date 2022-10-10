@@ -1,18 +1,24 @@
 <template>
   <div class="comboDiv">
-    <h1>Attack type:</h1>
-    <TypeSelector v-model="attack"></TypeSelector>
+    <h1>Attack type</h1>
+    <TypeSelector @change="changes()" v-model="attack"></TypeSelector>
   </div>
 
   <div class="comboDiv">
-    <h1>Defense type:</h1>
-    <TypeSelector v-model="defense1"></TypeSelector>
+    <h1>Defense type</h1>
+    <TypeSelector @change="changes()" v-model="defense1"></TypeSelector>
   </div>
 
   <div class="comboDiv" v-if="defense1 != 1">
-    <h1>Defense type 2:</h1>
-    <TypeSelector v-model="defense2"></TypeSelector>
+    <h1>Defense type 2</h1>
+    <TypeSelector @change="changes()" v-model="defense2"></TypeSelector>
   </div>
+
+  <div class="comboDiv" v-if="result != 0">
+    <h1>Result:</h1>
+    <p>{{result}}</p>
+  </div>
+
 </template>
 
 <script>
@@ -33,12 +39,21 @@ export default {
     const attack = ref(1);
     const defense1 = ref(1);
     const defense2 = ref(1);
+    const result = 1;
     return {
       attack,
       defense1,
       defense2,
+      result,
     };
   },
+  methods:{
+    changes() {
+      if (this.defense2 != 1) {
+        this.result = 1 * this.$options.temtemTypes[this.attack][this.defense1] * this.$options.temtemTypes[this.attack][this.defense2]
+      }
+    }
+  }
 };
 </script>
 

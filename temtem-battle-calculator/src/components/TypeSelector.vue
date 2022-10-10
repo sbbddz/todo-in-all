@@ -1,19 +1,15 @@
 <template>
-  <fieldset>
-    <div class="input-group group-sm mb-2">
-      <span class="input-group-text" v-html="label"></span>
-      <select
-          class="form-control"
-          :value="modelValue"
-          @change="$emit('update:modelValue', $event.target.value)"
-      >
-        <option v-for="type in typesArray" :value="type">
-          {{type}}
-        </option>
-      </select>
-    </div>
-    <p>SelectedField model value: {{ modelValue }}</p>
-  </fieldset>
+  <div class="input-group group-sm mb-2">
+    <select
+        class="form-control"
+        :value="modelValue"
+        @change="$emit('update:modelValue', $event.target.value)"
+    >
+      <option v-for="type in typesArray" :value="type">
+        {{ type }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <script>
