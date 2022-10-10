@@ -1,45 +1,64 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
+  interface Todo {
+    id: number;
+    value: string;
+  }
+
+  let todos: Todo[] = JSON.parse(window.localStorage.getItem("svelteTODOS")) ?? [];
+  let todo: string = '';
+
+  const addTodo = () => {
+    if (!todo) return;
+
+    todos = [...todos, {id: todos.length + 1, value: todo}]
+    todo = ''
+    updateTodosInLocalStorage();
+  }
+
+  const removeTodo = (todo: Todo) => {
+    todos = todos.filter(x => x.id !== todo.id)
+    updateTodosInLocalStorage();
+  }
+
+  const updateTodosInLocalStorage = () => {
+    window.localStorage.setItem("svelteTODOS", JSON.stringify(todos))
+  }
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank"> 
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank"> 
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <h1>SvelteDO</h1>
+  <form on:submit|preventDefault={addTodo}>
+    <input type="text" name="" id="" bind:value={todo} />
+  </form>
 
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <ul>
+    {#each todos as t }
+      <div id="todo" style="display: flex; flex-direction: row; align-items: center;">
+        <button on:click={() => removeTodo(t)}>Remove</button>
+        <li style="list-style-type: none; margin-left: 15px;">{t.value}</li>
+      </div>
+    {/each}
+  </ul>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
+  input {
+    padding: 10px;
+    font-size: 1.75em;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+
+  h1 {
+    font-size: 4em;
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
+
+  #todo {
+    font-size: 1.5em;
+    margin-top: 15px;
+    transition: transform 0.2s ease;
   }
-  .read-the-docs {
-    color: #888;
+
+  #todo:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
   }
 </style>
