@@ -42,5 +42,11 @@ export default {
 
 
 <style scoped>
+select {
+  background: #f9f9f9;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
 
 </style>

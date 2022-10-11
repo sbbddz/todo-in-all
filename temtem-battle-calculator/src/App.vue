@@ -16,7 +16,7 @@
 
   <div class="comboDiv" v-if="result != 0">
     <h1>Result:</h1>
-    <p>{{result}}</p>
+    <p class="result">{{result}}</p>
   </div>
 
 </template>
@@ -64,10 +64,12 @@ export default {
   min-width: 100vw;
   justify-content: space-around;
   align-items: center;
+  color: #ffffff;
 }
 
 body {
   margin: 0px;
+  background: #343434;
 }
 
 .comboDiv {
@@ -75,5 +77,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+}
+
+.result {
+  font-size: 1rem;
+  font-weight: 1000;
 }
 </style>
